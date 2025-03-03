@@ -14,8 +14,8 @@
     </header>
     <main>
         <form method="post" action="calculo.php">
-        <div class="container-wrapper">
-           <!-- <div class="container">
+            <div class="container-wrapper">
+                <!-- <div class="container">
                 <div class="equipamento">
                     <label for="equipamento">Descrição do Equipamento</label>
                     <input type="text" name="equipamento" id="equipamento" placeholder="Ex: Lâmpada" required>
@@ -41,120 +41,118 @@
                     <h2>Lista de Equipamentos</h2>
                 </div>
             </div-->
-            <div class="container2">
-                <div class="inversor">
-                    <h2>Placa</h2>
-                    <div class="placa">
-                        <label for="placa">Modelo da placa</label>
-                        <select name="placa" id="placa">
-                            <option disabled selected value="null">Selecione uma opção</option>
-                            <option value="modulo-intelbras">MODULO FOTOVOLTAICO INTELBRAS 160W</option>
-                            <option value="painel-canadian440">PAINEL FOTOVOLTAICO MONOCRISTALINO CANADIAN 440W</option>
-                            <option value="painel-sunova">PAINEL FOTOVOLTAICO MONOCRISTALINO SUNOVA 450W</option>
-                            <option value="painel-sine">PAINEL FOTOVOLTAICO MONOCRISTALINO SINE ENERGY 500W</option>
-                            <option value="painel-canadian550">PAINEL FOTOVOLTAICO MONOCRISTALINO CANADIAN 550W</option>
-                            <option value="painel-ja">PAINEL FOTOVOLTAICO MONOCRISTALINO JA SOLAR 550W</option>
-                            <option value="painel-sine">PAINEL FOTOVOLTAICO MONOCRISTALINO SINE ENERGY 555W</option>
-                            <option value="painel-znshine555">PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 555W</option>
-                            <option value="painel-znshine575">PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 575W</option>
-                        </select>
+                <div class="container2">
+                    <div class="inversor">
+                        <h2>Placa</h2>
+                        <div class="placa">
+                            <label for="placa">Modelo da placa</label>
+                            <select name="placa" id="placa">
+                                <option disabled selected value="null">Selecione uma opção</option>
+                                <option value="modulo-intelbras">MODULO FOTOVOLTAICO INTELBRAS 160W</option>
+                                <option value="painel-canadian440">PAINEL FOTOVOLTAICO MONOCRISTALINO CANADIAN 440W</option>
+                                <option value="painel-sunova">PAINEL FOTOVOLTAICO MONOCRISTALINO SUNOVA 450W</option>
+                                <option value="painel-sine">PAINEL FOTOVOLTAICO MONOCRISTALINO SINE ENERGY 500W</option>
+                                <option value="painel-canadian550">PAINEL FOTOVOLTAICO MONOCRISTALINO CANADIAN 550W</option>
+                                <option value="painel-ja">PAINEL FOTOVOLTAICO MONOCRISTALINO JA SOLAR 550W</option>
+                                <option value="painel-sine">PAINEL FOTOVOLTAICO MONOCRISTALINO SINE ENERGY 555W</option>
+                                <option value="painel-znshine555">PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 555W</option>
+                                <option value="painel-znshine575">PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 575W</option>
+                            </select>
+                        </div>
+                        <div class="tensao">
+                            <label for="tensao">Tensão de operação do sistema</label>
+                            <select name="tensao" id="tensao">
+                                <option disabled selected value="null">Selecione uma opção</option>
+                                <option value="tensao_12" id="tensao_12">12 Vdc</option>
+                                <option value="tensao_24" id="tensao_24">24 Vdc</option>
+                                <option value="tensao_48" id="tensao_48">48 Vdc</option>
+                                <option value="tensao_127" id="tensao_127">127 Vca</option>
+                                <option value="tensao_220" id="tensao_220">220 Vca</option>
+                            </select>
+                        </div>
+                        <div class="potencia">
+                            <label for="potencia">Potência dos equipamentos em Watt (W)</label>
+                            <input type="number" name="potencia" id="potencia" min="1" required>
+                        </div>
+                        <div class="tipo_estruta">
+                            <label for="inversor">Tipo de estrutura</label>
+                            <select name="estrutura" id="estrutura">
+                                <option disabled selected value="null">Selecione uma opção</option>
+                                <option value="sem-estrutra">SEM ESTRUTURA SOLAR</option>
+                                <option value="estutura-uma-placa">ESTRUTURA 1PLACA POSTE</option>
+                                <option value="estutura-duas-placa">ESTRUTURA 2PLACA POSTE</option>
+                            </select>
+                        </div>
+                        <div class="montagemGerador"> <!-- Adicione style="display: none;" para ocultar a <div> inicialmente -->
+                            <h2>Lista do Gerador</h2>
+                            <ul>
+                                <!-- As informações geradas pela função montagemSolar serão inseridas aqui como <li> -->
+                            </ul>
+                        </div>
                     </div>
-                    <div class="tensao">
-                        <label for="tensao">Tensão de operação do sistema</label>
-                        <select name="tensao" id="tensao">
-                            <option disabled selected value="null">Selecione uma opção</option>
-                            <option value="tensao_12" id="tensao_12">12 Vdc</option>
-                            <option value="tensao_24" id="tensao_24">24 Vdc</option>
-                            <option value="tensao_48" id="tensao_48">48 Vdc</option>
-                            <option value="tensao_127" id="tensao_127">127 Vca</option>
-                            <option value="tensao_220" id="tensao_220">220 Vca</option>
-                        </select>
-                    </div>
-                <div class="potencia">
-                    <label for="potencia">Potência dos equipamentos em Watt (W)</label>
-                    <input type="number" name="potencia" id="potencia" min="1" required>
-                </div>
-                    <div class="tipo_estruta">
-                        <label for="inversor">Tipo de estrutura</label>
-                        <select name="estrutura" id="estrutura">
-                            <option disabled selected value="null">Selecione uma opção</option>
-                            <option value="sem-estrutra">SEM ESTRUTURA SOLAR</option>
-                            <option value="estutura-uma-placa">ESTRUTURA 1PLACA POSTE</option>
-                            <option value="estutura-duas-placa">ESTRUTURA 2PLACA POSTE</option>
-                        </select>
-                    </div>
-                    <div class="montagemGerador"> <!-- Adicione style="display: none;" para ocultar a <div> inicialmente -->
-                        <h2>Lista do Gerador</h2>
-                        <ul> 
-                            <!-- As informações geradas pela função montagemSolar serão inseridas aqui como <li> -->
-                        </ul>
-                    </div>
-                </div>
-                <div class="bateria">
-                    <h2>Bateria</h2>
-                    <div class="tensao_operacao_sistema">
-                        <label for="tensao-bateria">Tensão do banco de bateria</label>
-                        <select name="tensao-bateria" id="tensao-bateria">
-                            <option disabled selected value="null">Selecione uma opção</option>
-                            <option value="tensao_bateria_12" id="tensao_bateria_12">12 Vdc</option>
-                            <option value="tensao_bateria_24" id="tensao_bateria_24">24 Vdc</option>
-                            <option value="tensao_bateria_48" id="tensao_bateria_48">48 Vdc</option>
-                        </select>
-                    </div>
-                    <div class="modelo_bateria">
-                        <label for="modelo_bateria">Modelo da Bateria</label>
+                    <div class="bateria">
+                        <h2>Bateria</h2>
+                        <div class="tensao_operacao_sistema">
+                            <label for="tensao_bateria">Tensão do banco de bateria</label>
+                            <select name="tensao_bateria" id="tensao_bateria">
+                                <option disabled selected value="">Selecione uma opção</option>
+                                <option value="tensao_bateria_12">12 Vdc</option>
+                                <option value="tensao_bateria_24">24 Vdc</option>
+                                <option value="tensao_bateria_48">48 Vdc</option>
+                            </select>
+                        </div>
+                        <label for="modelo_bateria">Modelo da bateria</label>
                         <select name="modelo_bateria" id="modelo_bateria">
                             <option disabled selected value="null">Selecione uma opção</option>
-                            <option value="bateria_moura">BATERIA SELADA SOLAR 12V 220AH MOURA</option>
-                            <option value="bateria_intelbras45">BATERIA ESTACIONARIA 12V 45AH INTELBRAS</option>
-                            <option value="bateria_intelbras60">BATERIA ESTACIONARIA 12V 60AH INTELBRAS</option>
-                            <option value="bateria_elo">BATERIA SOLAR 12-150AH ELO SOLAR</option>
-                            <option value="bateria_moura">BATERIA SELADA SOLAR 12V 220AH MOURA</option>
+                            <option value="BATERIA SELADA SOLAR 12V 220AH MOURA">BATERIA SELADA SOLAR 12V 220AH MOURA</option>
+                            <option value="BATERIA ESTACIONARIA 12V 45AH INTELBRAS">BATERIA ESTACIONARIA 12V 45AH INTELBRAS</option>
+                            <option value="BATERIA ESTACIONARIA 12V 60AH INTELBRAS">BATERIA ESTACIONARIA 12V 60AH INTELBRAS</option>
+                            <option value="BATERIA SOLAR 12-150AH ELO SOLAR">BATERIA SOLAR 12-150AH ELO SOLAR</option>
                         </select>
+
+                        <div class="descarregar_bateria">
+                            <label for="descarregar_bateria">Descarregar baterias até (%)</label>
+                            <select name="descarregar_bateria" id="descarregar_bateria">
+                                <option disabled selected value="null">Selecione uma opção</option>
+                                <option value="bat30">30%</option>
+                                <option value="bat40">40%</option>
+                                <option value="bat50">50%</option>
+                                <option value="bat60">60%</option>
+                                <option value="bat70">70%</option>
+                                <option value="bat80">80%</option>
+                            </select>
+                        </div>
+                        <div class="autonomia">
+                            <label for="bat-auto">Autonomia (Horas)</label>
+                            <input type="number" name="bat-auto" id="bat-auto">
+                        </div>
                     </div>
-                    <div class="porcentagem_bateria">
-                        <label for="porcentagem_bateria">Descarregar baterias até (%)</label>
-                        <select name="porcentagem_bateria" id="porcentagem_bateria">
-                            <option disabled selected value="null">Selecione uma opção</option>
-                            <option value="bat30">30%</option>
-                            <option value="bat40">40%</option>
-                            <option value="bat50">50%</option>
-                            <option value="bat60">60%</option>
-                            <option value="bat70">70%</option>
-                            <option value="bat80">80%</option>
-                        </select>
+                    <div class="local">
+                        <h2>Local de Instalação</h2>
+                        <div class="regiao">
+                            <label for="regiao">Região</label>
+                            <select name="regiao" id="regiao" onchange="carregarEstados()">
+                                <option disabled selected value="null">Selecione uma opção</option>
+                                <option value="norte">Norte</option>
+                                <option value="nordeste">Nordeste</option>
+                                <option value="oeste">Centro-Oeste</option>
+                                <option value="sudeste">Sudeste</option>
+                                <option value="sul">Sul</option>
+                            </select>
+                        </div>
+                        <div class="estado">
+                            <label for="estado">Estados</label>
+                            <select name="estado" id="estado">
+                                <option disabled selected value="null">Selecione uma opção</option>
+                                <!-- Opções de estados serão carregadas dinamicamente aqui -->
+                            </select>
+                        </div>
+                        <button onclick="montagemSolar()" id="montagemSolar">Montagem</button>
                     </div>
-                    <div class="autonomia">
-                        <label for="bat-auto">Autonomia (Horas)</label>
-                        <input type="number" name="bat-auto" id="bat-auto">
-                    </div>
-                </div>
-                <div class="local">
-                    <h2>Local de Instalação</h2>
-                    <div class="regiao">
-                        <label for="regiao">Região</label>
-                        <select name="regiao" id="regiao" onchange="carregarEstados()">
-                            <option disabled selected value="null">Selecione uma opção</option>
-                            <option value="norte">Norte</option>
-                            <option value="nordeste">Nordeste</option>
-                            <option value="oeste">Centro-Oeste</option>
-                            <option value="sudeste">Sudeste</option>
-                            <option value="sul">Sul</option>
-                        </select>
-                    </div>
-                    <div class="estado">
-                        <label for="estado">Estados</label>
-                        <select name="estado" id="estado">
-                            <option disabled selected value="null">Selecione uma opção</option>
-                            <!-- Opções de estados serão carregadas dinamicamente aqui -->
-                        </select>
-                    </div>
-                    <button onclick="montagemSolar()" id="montagemSolar">Montagem</button>
                 </div>
             </div>
-        </div>
-        <button type="submit">Enviar Formulário</button> <!-- Botão para envio -->
-    </form>
+            <button type="submit">Enviar Formulário</button> <!-- Botão para envio -->
+        </form>
     </main>
     <script src="script.js"></script>
 </body>
