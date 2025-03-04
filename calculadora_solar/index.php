@@ -48,16 +48,17 @@
                             <label for="placa">Modelo da placa</label>
                             <select name="placa" id="placa">
                                 <option disabled selected value="null">Selecione uma opção</option>
-                                <option value="modulo-intelbras">MODULO FOTOVOLTAICO INTELBRAS 160W</option>
-                                <option value="painel-canadian440">PAINEL FOTOVOLTAICO MONOCRISTALINO CANADIAN 440W</option>
-                                <option value="painel-sunova">PAINEL FOTOVOLTAICO MONOCRISTALINO SUNOVA 450W</option>
-                                <option value="painel-sine">PAINEL FOTOVOLTAICO MONOCRISTALINO SINE ENERGY 500W</option>
-                                <option value="painel-canadian550">PAINEL FOTOVOLTAICO MONOCRISTALINO CANADIAN 550W</option>
-                                <option value="painel-ja">PAINEL FOTOVOLTAICO MONOCRISTALINO JA SOLAR 550W</option>
-                                <option value="painel-sine">PAINEL FOTOVOLTAICO MONOCRISTALINO SINE ENERGY 555W</option>
-                                <option value="painel-znshine555">PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 555W</option>
-                                <option value="painel-znshine575">PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 575W</option>
+                                <option value="MODULO FOTOVOLTAICO INTELBRAS 160W">Módulo Fotovoltaico Intelbras 160W</option>
+                                <option value="PAINEL FOTOVOLTAICO MONOCRISTALINO CANADIAN 440W">Painel Fotovoltaico Monocristalino Canadian 440W</option>
+                                <option value="PAINEL FOTOVOLTAICO MONOCRISTALINO SUNOVA 450W">Painel Fotovoltaico Monocristalino Sunova 450W</option>
+                                <option value="PAINEL FOTOVOLTAICO MONOCRISTALINO SINE ENERGY 500W">Painel Fotovoltaico Monocristalino Sine Energy 500W</option>
+                                <option value="PAINEL FOTOVOLTAICO MONOCRISTALINO CANADIAN 550W">Painel Fotovoltaico Monocristalino Canadian 550W</option>
+                                <option value="PAINEL FOTOVOLTAICO MONOCRISTALINO JA SOLAR 550W">Painel Fotovoltaico Monocristalino JA Solar 550W</option>
+                                <option value="PAINEL FOTOVOLTAICO MONOCRISTALINO SINE ENERGY 555W">Painel Fotovoltaico Monocristalino Sine Energy 555W</option>
+                                <option value="PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 555W">Painel Fotovoltaico Monocristalino Znshine 555W</option>
+                                <option value="PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 575W">Painel Fotovoltaico Monocristalino Znshine 575W</option>
                             </select>
+
                         </div>
                         <div class="tensao">
                             <label for="tensao">Tensão de operação do sistema</label>
