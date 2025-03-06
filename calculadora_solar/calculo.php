@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $modelo_bateria = trim($_POST['modelo_bateria'] ?? '');
     $desc_bateria = trim($_POST['descarregar_bateria'] ?? '');
     $tensao_bateria = trim($_POST['tensao_bateria'] ?? '');
-    $modelo_placa = trim($_POST['placa'] ?? ''); // Garantir que o valor de placa seja recebido corretamente
+    $modelo_placa = trim($_POST['placa'] ?? '');  
 
     // Mapa para descarregar bateria
     $mapa_descarga = [
@@ -88,5 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $capacidade_placa = $placa['potencia_max'];
     echo "Potência da placa é: " . $capacidade_placa;
+    $tensao_placa = $placa['tensao_circuito'];
+    echo "Tensao da placa é:" .$tensao_placa;
 }
 ?>
