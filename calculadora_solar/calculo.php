@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Buscar potência da placa solar
     $modelo_placa_sql = $mapa_placa[$modelo_placa]; // Nome completo para a consulta
-    $sql_placa = "SELECT potencia_max FROM placasolar WHERE modelo = :modelo";
+    $sql_placa = "SELECT potencia_max, tensao_circuito FROM placasolar WHERE modelo = :modelo";
     $consulta_placa = $pdo->prepare($sql_placa);
     $consulta_placa->execute([':modelo' => $modelo_placa_sql]);
     $placa = $consulta_placa->fetch(PDO::FETCH_ASSOC);
@@ -87,8 +87,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $capacidade_placa = $placa['potencia_max'];
-    echo "Potência da placa é: " . $capacidade_placa;
+    echo "Potência da placa é: " . $capacidade_placa. "<br>";
     $tensao_placa = $placa['tensao_circuito'];
     echo "Tensao da placa é:" .$tensao_placa;
 }
+
 ?>
