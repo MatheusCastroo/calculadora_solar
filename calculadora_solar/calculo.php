@@ -7,6 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $desc_bateria = trim($_POST['descarregar_bateria'] ?? '');
     $tensao_bateria = trim($_POST['tensao_bateria'] ?? '');
     $modelo_placa = trim($_POST['placa'] ?? '');  
+    $tensao_sistema = trim($_POST['tensao'] ?? '');  
+    $horas_autonomia = trim($_POST['autonomia'] ?? '');  
 
     // Mapa para descarregar bateria
     $mapa_descarga = [
@@ -15,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
 
     // Mapa para tensão da bateria
-    $mapa_tensao = [
+    $mapa_tensao_bateria = [
         "tensao_bateria_12" => 12, "tensao_bateria_24" => 24, "tensao_bateria_48" => 48
     ];
 
@@ -30,6 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "PAINEL FOTOVOLTAICO MONOCRISTALINO SINE ENERGY 555W" => "PAINEL FOTOVOLTAICO MONOCRISTALINO SINE ENERGY 555W",
         "PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 555W" => "PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 555W",
         "PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 575W" => "PAINEL FOTOVOLTAICO MONOCRISTALINO ZNSHINE 575W"
+    ];
+    $mapa_tensao_sistema = [
+        "tensao_12" => 12, "tensao_24" => 24, "tensao_48" => 48, "tensao_127" => 127, "tensao_220" => 220
     ];
 
     // Validação de potência
@@ -48,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validação de tensão da bateria
-    if (!isset($mapa_tensao[$tensao_bateria])) {
+    if (!isset($mapa_tensao_bateria[$tensao_bateria])) {
         die("Erro: Selecione um valor válido para a tensão da bateria!");
     }
 
@@ -56,9 +61,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($mapa_placa[$modelo_placa])) {
         die("Erro: Selecione um modelo válido de placa solar!");
     }
+    // Validação de tensao sistema
+    if (!isset($mapa_tensao_sistema[$tensao_sistema])) {
+        die("Erro: Selecione um modelo válido de placa solar!");
+    }
+    // Validação de horas autonomia
+      if (!isset($horas_autonomia)) {
+        die("Erro: Selecione uma hora válida!");
+    }
+
 
     $porcentagem_descarga = $mapa_descarga[$desc_bateria] / 100;
-    $tensao_bateria_vdc = $mapa_tensao[$tensao_bateria];
+    $tensao_bateria_vdc = $mapa_tensao_bateria[$tensao_bateria];
+    $tensao_op_sistema = $mapa_tensao_sistema[$tensao_sistema];
 
     // Buscar capacidade da bateria
     $sql_bateria = "SELECT capacidade_ah FROM bateriasolar WHERE modelo = :modelo";
@@ -89,7 +104,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $capacidade_placa = $placa['potencia_max'];
     echo "Potência da placa é: " . $capacidade_placa. "<br>";
     $tensao_placa = $placa['tensao_circuito'];
-    echo "Tensao da placa é:" .$tensao_placa;
+    echo "Tensao da placa é:" .$tensao_placa. "<br>";
+    echo "Tensao do sistema: ".$tensao_op_sistema ."<br>";
+    echo "Horas de autonomia: ".$horas_autonomia;
+
+    $consumo_amper = $potencia / $tensao_bateria_vdc;
+    echo "<br>Consumo de amper: ".number_format($consumo_amper,2);
+    $corrente_bateria = ($horas_autonomia * $consumo_amper) / $porcentagem_descarga;
+
 }
 
 ?>
