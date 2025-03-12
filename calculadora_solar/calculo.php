@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tensao_bateria = trim($_POST['tensao_bateria'] ?? '');
     $modelo_placa = trim($_POST['placa'] ?? '');
     $tensao_sistema = trim($_POST['tensao'] ?? '');
+    $estrutura_placa = trim($_POST['estrutura'] ?? '');
 
     $horas_autonomia = floatval($_POST['autonomia'] ?? '');
 
@@ -49,6 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "tensao_220" => 220
     ];
 
+    $mapa_estrutura = [
+"SEM ESTRUTURA SOLAR" => "SEM ESTRUTURA SOLAR",    
+"ESTRUTURA 1PLACA POSTE" => "ESTRUTURA 1PLACA POSTE",
+"ESTRUTURA 2PLACA POSTE" => "ESTRUTURA 2PLACA POSTE"
+ ];
+
     // Validação de potência
     if (!is_numeric($potencia) || $potencia <= 0) {
         die("Erro: Informe uma potência válida!");
@@ -81,14 +88,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($horas_autonomia)) {
         die("Erro: Selecione uma hora válida!");
     }
-
+    
+    if (!isset($mapa_estrutura [$estrutura_placa])) {
+        die("Erro: Selecione uma estrutura válida!");
+    }
 
     $porcentagem_descarga = $mapa_descarga[$desc_bateria] / 100;
     $tensao_bateria_vdc = $mapa_tensao_bateria[$tensao_bateria];
     $tensao_op_sistema = $mapa_tensao_sistema[$tensao_sistema];
 
     // Buscar capacidade da bateria
-    $sql_bateria = "SELECT capacidade_ah FROM bateriasolar WHERE modelo = :modelo";
+    $sql_bateria = "SELECT capacidade_ah, sku, modelo FROM bateriasolar WHERE modelo = :modelo";
     $consulta_bateria = $pdo->prepare($sql_bateria);
     $consulta_bateria->execute([':modelo' => $modelo_bateria]);
     $bateria = $consulta_bateria->fetch(PDO::FETCH_ASSOC);
@@ -101,6 +111,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Número do AH da bateria selecionada: " . $capacidade_ah . "<br>";
     echo "Bateria será descarregada até: " . ($porcentagem_descarga * 100) . "%<br>";
     echo "Tensão da bateria é: " . ($tensao_bateria_vdc) . "<br>";
+    $sku_bateria = $bateria['sku'];
+    $modelo_bateria = $bateria['modelo'];
 
     // Buscar potência da placa solar
     $modelo_placa_sql = $mapa_placa[$modelo_placa]; // Nome completo para a consulta
@@ -173,5 +185,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<li>Quantidade da placa: " . $quantidade_placa_mppt . "</li>";
     echo "<li>SKU: " . $sku_placa . "</li>";
     echo "</ul>";
+
+    echo "<ul>";
+    echo "<li>Modelo da bateria: " . $modelo_bateria . "</li>";
+    echo "<li>Quantidade da bateria: " .$quantidade_bateria. "</li>";
+    echo "<li>SKU: " . $sku_bateria . "</li>";
+    echo "</ul>";
+
+    echo "<ul>";
+    echo "<li>Estrutura da placa: " . $estrutura_placa . "</li>";
+    echo "<li>Quantidade da bateria: " .$quantidade_bateria. "</li>";
+    echo "<li>SKU: " . $sku_bateria . "</li>";
+    echo "</ul>";
+
 
 }    
