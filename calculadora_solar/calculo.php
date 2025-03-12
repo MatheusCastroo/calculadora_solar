@@ -1,3 +1,4 @@
+
 <?php
 require 'conexao.php'; // Importa a conexão com o banco
 
@@ -9,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $modelo_placa = trim($_POST['placa'] ?? '');
     $tensao_sistema = trim($_POST['tensao'] ?? '');
 
-    $horas_autonomia = trim($_POST['autonomia'] ?? '');
+    $horas_autonomia = floatval($_POST['autonomia'] ?? '');
 
     // Mapa para descarregar bateria
     $mapa_descarga = [
@@ -103,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Buscar potência da placa solar
     $modelo_placa_sql = $mapa_placa[$modelo_placa]; // Nome completo para a consulta
-    $sql_placa = "SELECT potencia_max, tensao_circuito, corrente_curto FROM placasolar WHERE modelo = :modelo";
+    $sql_placa = "SELECT sku, potencia_max, tensao_circuito, corrente_curto FROM placasolar WHERE modelo = :modelo";
     $consulta_placa = $pdo->prepare($sql_placa);
     $consulta_placa->execute([':modelo' => $modelo_placa_sql]);
     $placa = $consulta_placa->fetch(PDO::FETCH_ASSOC);
@@ -116,10 +117,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Potência da placa é: " . $capacidade_placa . "<br>";
     $tensao_placa = $placa['tensao_circuito'];
     $corrente_placa = $placa['corrente_curto'];
+    $sku_placa = $placa['sku'];
     echo "Tensao da placa é:" . $tensao_placa . "<br>";
     echo "Corrente da placa é:" . $corrente_placa . "<br>";
     echo "Tensao do sistema: " . $tensao_op_sistema . "<br>";
     echo "Horas de autonomia: " . $horas_autonomia;
+    echo "SKU da placa é: " .$sku_placa;
 
     $consumo_amper = $potencia / $tensao_bateria_vdc;
     echo "<br>Consumo de amper: " . number_format($consumo_amper, 2);
@@ -157,10 +160,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<br>Potencia Necessaria PWM: " . $potencia_sistema_pwm;
     $quantidade_placa_pwm = round($potencia_sistema_pwm);
     echo "<br>Quantidade placa PWM: " . $quantidade_placa_pwm;
-    $quantidade_placa_mppt = round($potencia_sistema_pwm / $capacidade_placa);
+    $quantidade_placa_mppt = ceil($potencia_sistema_pwm / $capacidade_placa);
     echo "<br>Quantidade placa MPPT: " . $quantidade_placa_mppt;
     $corrente_controlador_carga = ceil($corrente_carregar_bateria);
     echo "<br>Corrente Controlador de carga Ah: " . $corrente_controlador_carga;
     $potencia_inversor = $potencia;
     echo "<br>Potencia inversor: " . $potencia_inversor;
-}
+
+
+    echo "<ul>";
+    echo "<li>Modelo da placa: " . $modelo_placa . "</li>";
+    echo "<li>Quantidade da placa: " . $quantidade_placa_mppt . "</li>";
+    echo "<li>SKU: " . $sku_placa . "</li>";
+    echo "</ul>";
+
+}    
