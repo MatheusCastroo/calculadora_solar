@@ -79,9 +79,9 @@
                             <label for="inversor">Tipo de estrutura</label>
                             <select name="estrutura" id="estrutura">
                                 <option disabled selected value="null">Selecione uma opção</option>
-                                <option value="sem-estrutra">SEM ESTRUTURA SOLAR</option>
-                                <option value="estutura-uma-placa">ESTRUTURA 1PLACA POSTE</option>
-                                <option value="estutura-duas-placa">ESTRUTURA 2PLACA POSTE</option>
+                                <option value="SEM ESTRUTURA SOLAR">SEM ESTRUTURA SOLAR</option>
+                                <option value="ESTRUTURA 1PLACA POSTE">ESTRUTURA 1PLACA POSTE</option>
+                                <option value="ESTRUTURA 2PLACA POSTE">ESTRUTURA 2PLACA POSTE</option>
                             </select>
                         </div>
                         <div class="montagemGerador"> <!-- Adicione style="display: none;" para ocultar a <div> inicialmente -->
@@ -124,8 +124,8 @@
                             </select>
                         </div>
                         <div class="autonomia">
-                            <label for="bat-auto">Autonomia (Horas)</label>
-                            <input type="number" name="bat-auto" id="bat-auto">
+                            <label for="autonomia">Autonomia (Horas)</label>
+                            <input type="number" name="autonomia" id="autonomia">
                         </div>
                     </div>
                     <div class="local">
