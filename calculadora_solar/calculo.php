@@ -51,10 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
 
     $mapa_estrutura = [
-"SEM ESTRUTURA SOLAR" => "SEM ESTRUTURA SOLAR",    
-"ESTRUTURA 1PLACA POSTE" => "ESTRUTURA 1PLACA POSTE",
-"ESTRUTURA 2PLACA POSTE" => "ESTRUTURA 2PLACA POSTE"
- ];
+        "SEM ESTRUTURA SOLAR" => "SEM ESTRUTURA SOLAR",
+        "ESTRUTURA 1PLACA POSTE" => "ESTRUTURA 1PLACA POSTE",
+        "ESTRUTURA 2PLACA POSTE" => "ESTRUTURA 2PLACA POSTE"
+    ];
 
     // Validação de potência
     if (!is_numeric($potencia) || $potencia <= 0) {
@@ -88,8 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($horas_autonomia)) {
         die("Erro: Selecione uma hora válida!");
     }
-    
-    if (!isset($mapa_estrutura [$estrutura_placa])) {
+
+    if (!isset($mapa_estrutura[$estrutura_placa])) {
         die("Erro: Selecione uma estrutura válida!");
     }
 
@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Corrente da placa é:" . $corrente_placa . "<br>";
     echo "Tensao do sistema: " . $tensao_op_sistema . "<br>";
     echo "Horas de autonomia: " . $horas_autonomia;
-    echo "SKU da placa é: " .$sku_placa;
+    echo "SKU da placa é: " . $sku_placa;
 
     $consumo_amper = $potencia / $tensao_bateria_vdc;
     echo "<br>Consumo de amper: " . number_format($consumo_amper, 2);
@@ -188,15 +188,92 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "<ul>";
     echo "<li>Modelo da bateria: " . $modelo_bateria . "</li>";
-    echo "<li>Quantidade da bateria: " .$quantidade_bateria. "</li>";
+    echo "<li>Quantidade da bateria: " . $quantidade_bateria . "</li>";
     echo "<li>SKU: " . $sku_bateria . "</li>";
     echo "</ul>";
 
     echo "<ul>";
     echo "<li>Estrutura da placa: " . $estrutura_placa . "</li>";
-    echo "<li>Quantidade da bateria: " .$quantidade_bateria. "</li>";
+    echo "<li>Quantidade da bateria: " . $quantidade_bateria . "</li>";
     echo "<li>SKU: " . $sku_bateria . "</li>";
     echo "</ul>";
 
 
-}    
+
+/*CONTROLADOR DE CARGA */
+
+$sql_controlador = "SELECT sku, tensao_nominal_1, tensao_nominal_2, tensao_nominal_3, tensao_circuito_aberto_max, corrente_carga_nominal, eficiencia FROM controladorcarga";
+
+$consulta_controlador = $pdo->prepare($sql_controlador); 
+$consulta_controlador->execute(); 
+$controlador_carga = $consulta_controlador->fetch(PDO::FETCH_ASSOC);
+$g7 = 24;
+
+// Funções para validar cada teste - Primeira rodada
+function teste01a($corrente_controlador_carga, $teste_corrente01) {
+    return $corrente_controlador_carga <= $teste_corrente01;
+}
+
+function teste02a($g7, $tensao_bateria) {
+    return $g7 >=  $tensao_bateria;
+}
+
+function teste03a($q30, $teste_corrente01) {
+    return ($teste_corrente01 != 0) ? $q30 / $teste_corrente01 : "Erro: divisão por zero";
+}
+
+function teste04a($p7) {
+    return ceil($p7);
+}
+
+function teste05a($n7, $o7, $r3) {
+    return ($n7 == $r3 && $o7 == $r3);
+}
+
+// Funções para validar cada teste - Segunda rodada
+function teste01b($corrente_controlador_carga, $j7, $j8) {
+    return ($corrente_controlador_carga > $j7 && $corrente_controlador_carga <= $j8);
+}
+
+function teste02b($g8, $n25) {
+    return $g8 >= $n25;
+}
+
+function teste03b($q30, $j8) {
+    return ($j8 != 0) ? $q30 / $j8 : "Erro: divisão por zero";
+}
+
+function teste04b($p8) {
+    return ceil($p8);
+}
+
+function teste05b($n8, $o8, $r3) {
+    return ($n8 == $r3 && $o8 == $r3);
+}
+
+// Criando cenários de teste
+$testes = [
+    ["m25" => 5, "j7" => 10, "j8" => 15, "g7" => 30, "g8" => 35, "n25" => 25, "q30" => 60, "p7" => 4.3, "p8" => 5.6, "n7" => 50, "o7" => 50, "n8" => 50, "o8" => 50, "r3" => 50],
+    ["m25" => 12, "j7" => 12, "j8" => 18, "g7" => 20, "g8" => 22, "n25" => 25, "q30" => 120, "p7" => 7.8, "p8" => 9.2, "n7" => 30, "o7" => 50, "n8" => 50, "o8" => 30, "r3" => 50],
+    ["m25" => 8, "j7" => 8, "j8" => 14, "g7" => 50, "g8" => 55, "n25" => 50, "q30" => 80, "p7" => 3.2, "p8" => 3.9, "n7" => 50, "o7" => 50, "n8" => 50, "o8" => 50, "r3" => 50],
+];
+
+// Executando os testes
+foreach ($testes as $teste) {
+    echo "=== Primeira Rodada ===\n";
+    echo "Teste 01: " . (teste01a($teste["m25"], $teste["j7"]) ? "TRUE" : "FALSE") . " | ";
+    echo "Teste 02: " . (teste02a($teste["g7"], $teste["n25"]) ? "TRUE" : "FALSE") . " | ";
+    echo "Teste 03: " . teste03a($teste["q30"], $teste["j7"]) . " | ";
+    echo "Teste 04: " . teste04a($teste["p7"]) . " | ";
+    echo "Teste 05: " . (teste05a($teste["n7"], $teste["o7"], $teste["r3"]) ? "TRUE" : "FALSE") . "\n";
+
+    echo "=== Segunda Rodada ===\n";
+    echo "Teste 01: " . (teste01b($teste["m25"], $teste["j7"], $teste["j8"]) ? "TRUE" : "FALSE") . " | ";
+    echo "Teste 02: " . (teste02b($teste["g8"], $teste["n25"]) ? "TRUE" : "FALSE") . " | ";
+    echo "Teste 03: " . teste03b($teste["q30"], $teste["j8"]) . " | ";
+    echo "Teste 04: " . teste04b($teste["p8"]) . " | ";
+    echo "Teste 05: " . (teste05b($teste["n8"], $teste["o8"], $teste["r3"]) ? "TRUE" : "FALSE") . "\n\n";
+}
+
+}
+//PRECISO CRIAR UM CÓDIGO ONDE ELE DEVE VALIDAR OS 3 CENÁRIOS DE TESTES E RETORNAR SOMENTE O QUAL ESTIVER COM OS 3 CENÁRIOS.
