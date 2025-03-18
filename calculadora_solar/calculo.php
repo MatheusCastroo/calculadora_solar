@@ -300,85 +300,86 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "SKU" => 22768 //cenario ok
         ],
         [
-            "Teste1" => ($),
-            "Teste2" => ($tensao_bateria_vdc == 24),
-            "Teste3" => ($tensao_op_sistema == 127),
-            "Teste4" => ("Valor Esperado" == $r3),
-            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
-            "Quantidade" => ceil($potencia_inversor / 280),
-            "SKU" => 22768
-
-        ],
-        [
             "Teste1" => ($potencia_inversor <= 750),
             "Teste2" => ($tensao_bateria_vdc == 24),
             "Teste3" => ($tensao_op_sistema == 127),
             "Teste4" => ("Valor Esperado" == $r3),
-            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
-            "Quantidade" => ceil($potencia_inversor / 280),
-            "SKU" => 22768
+            "Resultado" => "INVERSOR DE TENSÃO SENOIDAL 750W ISV 751 INTELBRAS",
+            "Quantidade" => ceil($potencia_inversor / 750),
+            "SKU" => 23133
 
         ],
         [
-            "Teste1" => ($r3),
+            "Teste1" => ($potencia_inversor > 750 && $potencia_inversor <= 1000),
             "Teste2" => ($tensao_bateria_vdc == 24),
             "Teste3" => ($tensao_op_sistema == 127),
             "Teste4" => ("Valor Esperado" == $r3),
-            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
-            "Quantidade" => ceil($potencia_inversor / 280),
-            "SKU" => 22768
+            "Resultado" => "INVERSOR SENOIDAL 1000W 24V/110V IP1000-21-PLUS(T) EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 1000),
+            "SKU" => 25378
+        ],
+        [
+            "Teste1" => ($potencia_inversor > 1000 && $potencia_inversor <= 1500),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR DE TENSÃO ONDA SENOIDAL 1500W ISV 1501 INTELBRAS",
+            "Quantidade" => ceil($potencia_inversor / 1500),
+            "SKU" => 25379
 
         ],
         [
-            "Teste1" => ($r3),
+            "Teste1" => ($potencia_inversor <= 2000),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 220),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR SENOIDAL 2000W 24V/220V IP2000-22-PLUS(T) EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 2000),
+            "SKU" => 25379
+
+        ],
+    
+        [
+            "Teste1" => ($potencia_inversor <= 2000),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 220),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR SENOIDAL 2000W 24V/220V IP2000-22-PLUS(T) EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 2000),
+            "SKU" => 25379
+
+        ],
+        /*--*/
+        [
+            "Teste1" => ($potencia_inversor <= 2000),
             "Teste2" => ($tensao_bateria_vdc == 24),
             "Teste3" => ($tensao_op_sistema == 127),
             "Teste4" => ("Valor Esperado" == $r3),
-            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
-            "Quantidade" => ceil($potencia_inversor / 280),
-            "SKU" => 22768
+            "Resultado" => "INVERSOR SENOIDAL 2000W 24V/110V IP2000-21-PLUS(T) EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 2000),
+            "SKU" => 25380
 
         ],
         [
-            "Teste1" => ($r3),
-            "Teste2" => ($tensao_bateria_vdc == 24),
-            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste1" => ($potencia_inversor >= 1),
+            "Teste2" => ($tensao_bateria_vdc == 48),
+            "Teste3" => ($tensao_op_sistema == 220),
             "Teste4" => ("Valor Esperado" == $r3),
-            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
-            "Quantidade" => ceil($potencia_inversor / 280),
-            "SKU" => 22768
+            "Resultado" => "INVERSOR SENOIDAL 4000W 48V/110V IP4000-41-PLUS(T) EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 4000),
+            "SKU" => 25382
 
         ],
         [
-            "Teste1" => ($r3),
-            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste1" => ($potencia_inversor >= 1),
+            "Teste2" => ($tensao_bateria_vdc == 48),
             "Teste3" => ($tensao_op_sistema == 127),
             "Teste4" => ("Valor Esperado" == $r3),
-            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
-            "Quantidade" => ceil($potencia_inversor / 280),
-            "SKU" => 22768
+            "Resultado" => "INVERSOR SENOIDAL 4000W 48V/220V IP4000-42-PLUS(T) EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 4000),
+            "SKU" => 25381
 
-        ],
-        [
-            "Teste1" => ($r3),
-            "Teste2" => ($tensao_bateria_vdc == 24),
-            "Teste3" => ($tensao_op_sistema == 127),
-            "Teste4" => ("Valor Esperado" == $r3),
-            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
-            "Quantidade" => ceil($potencia_inversor / 280),
-            "SKU" => 22768
-
-        ],
-        [
-            "Teste1" => ($r3),
-            "Teste2" => ($tensao_bateria_vdc == 24),
-            "Teste3" => ($tensao_op_sistema == 127),
-            "Teste4" => ("Valor Esperado" == $r3),
-            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
-            "Quantidade" => ceil($potencia_inversor / 280),
-            "SKU" => 22768
-
-        ],
+        ]
 
     ];
     foreach ($cenarios_inversor as $cenario_inversor) {
