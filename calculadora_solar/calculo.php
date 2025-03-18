@@ -108,9 +108,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $capacidade_ah = intval($bateria['capacidade_ah']);
-    echo "Número do AH da bateria selecionada: " . $capacidade_ah . "<br>";
-    echo "Bateria será descarregada até: " . ($porcentagem_descarga * 100) . "%<br>";
-    echo "Tensão da bateria é: " . ($tensao_bateria_vdc) . "<br>";
     $sku_bateria = $bateria['sku'];
     $modelo_bateria = $bateria['modelo'];
 
@@ -126,58 +123,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $capacidade_placa = $placa['potencia_max'];
-    echo "Potência da placa é: " . $capacidade_placa . "<br>";
     $tensao_placa = $placa['tensao_circuito'];
     $corrente_placa = $placa['corrente_curto'];
     $sku_placa = $placa['sku'];
-    echo "Tensao da placa é:" . $tensao_placa . "<br>";
-    echo "Corrente da placa é:" . $corrente_placa . "<br>";
-    echo "Tensao do sistema: " . $tensao_op_sistema . "<br>";
-    echo "Horas de autonomia: " . $horas_autonomia;
-    echo "SKU da placa é: " . $sku_placa;
+
 
     $consumo_amper = $potencia / $tensao_bateria_vdc;
-    echo "<br>Consumo de amper: " . number_format($consumo_amper, 2);
     $corrente_bateria = ($horas_autonomia * $consumo_amper) / $porcentagem_descarga;
-    echo "<br>Corrente bateria: " . $corrente_bateria;
     $calculo_bateria_x = number_format(($corrente_bateria / $capacidade_ah) * ($tensao_bateria_vdc / 12), 2, '.', '');
-    echo "<br>calculo x bateria: " . $calculo_bateria_x;
     $calculo_bateria_y = ($capacidade_ah / $capacidade_ah) * ($tensao_bateria_vdc / 12);
-    echo "<br>calculo y bateria: " . $calculo_bateria_y;
 
     if ($calculo_bateria_y >= $calculo_bateria_x) {
         $calculo_bateria_z = number_format($calculo_bateria_y * 1, 3, '.', '');
-        echo "<br>calculo z bateria: " . $calculo_bateria_z;
     } else {
         $calculo_bateria_z = $calculo_bateria_x * 1;
-        echo "<br>calculo z bateria: " . $calculo_bateria_z;
     }
 
     $quantidade_bateria = round(round($calculo_bateria_z, 0) / ($tensao_bateria_vdc / 12), 0) * ($tensao_bateria_vdc / 12);
-    echo "<br>Quantidade bateria: " . $quantidade_bateria;
 
     $corrente_carregar_bateria = number_format((($capacidade_ah * $quantidade_bateria) / ($tensao_bateria_vdc / 12)) * 0.10, 2, '.', '');
-    echo "<br>Corrente necessário para carregar a bateria é:  " . $corrente_carregar_bateria;
 
     $potencia_recarga = (($tensao_bateria_vdc * 1.2) * $corrente_carregar_bateria) * 1;
-    echo "<br>Potencia Necessária para Recarga:  " . $potencia_recarga;
 
     $potencia_sistema = $potencia_recarga + $potencia;
-    echo "<br>Potencia Necessária para sistema:  " . $potencia_sistema;
 
     $potencia_recarga_pwm = number_format(($corrente_carregar_bateria / $corrente_placa) * 1, 2, '.', '');
-    echo "<br>Potencia Necessaria PWM: " . $potencia_recarga_pwm;
 
     $potencia_sistema_pwm = number_format((($corrente_carregar_bateria + $consumo_amper) / $corrente_placa) * 1, 2, '.', '');
-    echo "<br>Potencia Necessaria PWM: " . $potencia_sistema_pwm;
     $quantidade_placa_pwm = round($potencia_sistema_pwm);
-    echo "<br>Quantidade placa PWM: " . $quantidade_placa_pwm;
-    $quantidade_placa_mppt = ceil($potencia_sistema_pwm / $capacidade_placa);
-    echo "<br>Quantidade placa MPPT: " . $quantidade_placa_mppt;
+    $quantidade_placa_mppt = round($potencia_sistema / $capacidade_placa);
     $corrente_controlador_carga = ceil($corrente_carregar_bateria);
-    echo "<br>Corrente Controlador de carga Ah: " . $corrente_controlador_carga;
     $potencia_inversor = $potencia;
-    echo "<br>Potencia inversor: " . $potencia_inversor;
 
 
     echo "<ul>";
@@ -198,18 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<li>SKU: " . $sku_bateria . "</li>";
     echo "</ul>";
 
-
-
-    /*CONTROLADOR DE CARGA */
-
-    $sql_controlador = "SELECT sku, tensao_nominal_1, tensao_nominal_2, tensao_nominal_3, tensao_circuito_aberto_max, corrente_carga_nominal, eficiencia FROM controladorcarga";
-
-    $consulta_controlador = $pdo->prepare($sql_controlador);
-    $consulta_controlador->execute();
-    $controlador_carga = $consulta_controlador->fetch(PDO::FETCH_ASSOC);
     $g7 = 24;
-
-
     $o25 = $tensao_placa * $quantidade_placa_mppt;
     $p30 = $o25 / 92;
     $q30 = $p30 * $corrente_placa;
@@ -276,9 +241,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]
 
     ];
-
-    // Verificação dos cenários
-
     foreach ($cenarios_controlador as $cenario_controlador) {
         if ($cenario_controlador["Teste1"] && $cenario_controlador["Teste2"] && $cenario_controlador["Teste3"] && $cenario_controlador["Teste4"]) {
             echo "<ul>";
@@ -286,10 +248,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<li>Quantidade: " . $cenario_controlador["Teste3"] . "</li>";
             echo "<li>SKU: " . $cenario_controlador["SKU"] . "</li>";
             echo "</ul>";
-            break; // Para no primeiro que for verdadeiro
+            break; 
         }
     }
-    $cenarios_micro = [
+    $cenarios_inversor = [
         [
             "Teste1" => ($r3),
             "Teste2" => ($tensao_bateria_vdc == 24),
@@ -297,7 +259,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "Teste4" => ("Valor Esperado" == $r3),
             "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
             "Quantidade" => ceil($potencia_inversor / 280),
-            "SKU" => 22768 //cenario ok
+            "SKU" => 22768 
         ],
         [
             "Teste1" => ($potencia_inversor <= 750),
@@ -338,7 +300,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "SKU" => 25379
 
         ],
-    
+
         [
             "Teste1" => ($potencia_inversor <= 2000),
             "Teste2" => ($tensao_bateria_vdc == 24),
@@ -349,7 +311,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "SKU" => 25379
 
         ],
-        /*--*/
         [
             "Teste1" => ($potencia_inversor <= 2000),
             "Teste2" => ($tensao_bateria_vdc == 24),
@@ -386,10 +347,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($cenario_inversor["Teste1"] && $cenario_inversor["Teste2"] && $cenario_inversor["Teste3"] && $cenario_inversor["Teste4"]) {
             echo "<ul>";
             echo "<li>Resultado: " . $cenario_inversor["Resultado"] . "</li>";
-            echo "<li>Quantidade: " . $cenario_inversor["Teste3"] . "</li>";
+            echo "<li>Quantidade: " . $cenario_inversor["Quantidade"] . "</li>";
             echo "<li>SKU: " . $cenario_inversor["SKU"] . "</li>";
             echo "</ul>";
-            break; // Para no primeiro que for verdadeiro
         }
     }
 }
