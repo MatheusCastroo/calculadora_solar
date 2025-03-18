@@ -152,7 +152,6 @@
                     </div>
                 </div>
             </div>
-            <button type="submit">Enviar Formulário</button> <!-- Botão para envio -->
         </form>
     </main>
     <script src="script.js"></script>
