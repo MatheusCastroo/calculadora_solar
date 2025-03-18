@@ -217,7 +217,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $r3 = "Valor Esperado";
 
     // Cenários de teste
-    $cenarios = [
+    $cenarios_controlador = [
         [
             "Teste1" => ($corrente_controlador_carga <= 20),
             "Teste2" => (24 >= $tensao_bateria_vdc),
@@ -279,12 +279,114 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verificação dos cenários
 
-   foreach ($cenarios as $cenario) {
-        if ($cenario["Teste1"] && $cenario["Teste2"] && $cenario["Teste3"] && $cenario["Teste4"]) {
+    foreach ($cenarios_controlador as $cenario_controlador) {
+        if ($cenario_controlador["Teste1"] && $cenario_controlador["Teste2"] && $cenario_controlador["Teste3"] && $cenario_controlador["Teste4"]) {
             echo "<ul>";
-            echo "<li>Resultado: " . $cenario["Resultado"] . "</li>";
-            echo "<li>Quantidade: " . $cenario["Teste3"] . "</li>";
-            echo "<li>SKU: " . $cenario["SKU"] . "</li>";
+            echo "<li>Resultado: " . $cenario_controlador["Resultado"] . "</li>";
+            echo "<li>Quantidade: " . $cenario_controlador["Teste3"] . "</li>";
+            echo "<li>SKU: " . $cenario_controlador["SKU"] . "</li>";
+            echo "</ul>";
+            break; // Para no primeiro que for verdadeiro
+        }
+    }
+    $cenarios_micro = [
+        [
+            "Teste1" => ($r3),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 280),
+            "SKU" => 22768 //cenario ok
+        ],
+        [
+            "Teste1" => ($),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 280),
+            "SKU" => 22768
+
+        ],
+        [
+            "Teste1" => ($potencia_inversor <= 750),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 280),
+            "SKU" => 22768
+
+        ],
+        [
+            "Teste1" => ($r3),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 280),
+            "SKU" => 22768
+
+        ],
+        [
+            "Teste1" => ($r3),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 280),
+            "SKU" => 22768
+
+        ],
+        [
+            "Teste1" => ($r3),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 280),
+            "SKU" => 22768
+
+        ],
+        [
+            "Teste1" => ($r3),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 280),
+            "SKU" => 22768
+
+        ],
+        [
+            "Teste1" => ($r3),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 280),
+            "SKU" => 22768
+
+        ],
+        [
+            "Teste1" => ($r3),
+            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste4" => ("Valor Esperado" == $r3),
+            "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
+            "Quantidade" => ceil($potencia_inversor / 280),
+            "SKU" => 22768
+
+        ],
+
+    ];
+    foreach ($cenarios_inversor as $cenario_inversor) {
+        if ($cenario_inversor["Teste1"] && $cenario_inversor["Teste2"] && $cenario_inversor["Teste3"] && $cenario_inversor["Teste4"]) {
+            echo "<ul>";
+            echo "<li>Resultado: " . $cenario_inversor["Resultado"] . "</li>";
+            echo "<li>Quantidade: " . $cenario_inversor["Teste3"] . "</li>";
+            echo "<li>SKU: " . $cenario_inversor["SKU"] . "</li>";
             echo "</ul>";
             break; // Para no primeiro que for verdadeiro
         }
