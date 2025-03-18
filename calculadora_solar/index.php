@@ -10,37 +10,11 @@
 
 <body>
     <header>
-        <h1>Teste Solar</h1>
+        <h1>Calculadora OFFGRID</h1>
     </header>
     <main>
         <form method="post" action="calculo.php">
             <div class="container-wrapper">
-                <!-- <div class="container">
-                <div class="equipamento">
-                    <label for="equipamento">Descrição do Equipamento</label>
-                    <input type="text" name="equipamento" id="equipamento" placeholder="Ex: Lâmpada" required>
-                </div>
-                <div class="potencia_w">
-                    <label for="potencia_w">Potência dos equipamentos em Watt (W)</label>
-                    <input type="number" name="potencia_w" id="potencia_w" min="1" required>
-                </div>
-                <div class="quantidade_equip">
-                    <label for="quantidade_equip">Quantidade</label>
-                    <input type="number" name="quantidade_equip" id="quantidade_equip" min="1" required>
-                </div>
-                <div class="hdia">
-                    <label for="hdia">Horas de uso diário</label>
-                    <input type="number" name="hdia" id="hdia" min="0.1" required>
-                </div>
-                <button onclick="multiplicarCampos()" id="verificar">Verificar</button>
-                <div class="resultado">
-                    <label for="res">Consumo Diário do(s) Equipamento(s)</label>
-                    <span id="res">0 Wh/dia</span>
-                </div>
-                <div class="lista_equip">
-                    <h2>Lista de Equipamentos</h2>
-                </div>
-            </div-->
                 <div class="container2">
                     <div class="inversor">
                         <h2>Placa</h2>
@@ -84,10 +58,9 @@
                                 <option value="ESTRUTURA 2PLACA POSTE">ESTRUTURA 2PLACA POSTE</option>
                             </select>
                         </div>
-                        <div class="montagemGerador"> <!-- Adicione style="display: none;" para ocultar a <div> inicialmente -->
+                        <div class="montagemGerador">
                             <h2>Lista do Gerador</h2>
                             <ul>
-                                <!-- As informações geradas pela função montagemSolar serão inseridas aqui como <li> -->
                             </ul>
                         </div>
                     </div>
@@ -126,29 +99,8 @@
                         <div class="autonomia">
                             <label for="autonomia">Autonomia (Horas)</label>
                             <input type="number" name="autonomia" id="autonomia">
+                            <button onclick="montagemSolar()" id="montagemSolar">Montagem</button>
                         </div>
-                    </div>
-                    <div class="local">
-                        <h2>Local de Instalação</h2>
-                        <div class="regiao">
-                            <label for="regiao">Região</label>
-                            <select name="regiao" id="regiao" onchange="carregarEstados()">
-                                <option disabled selected value="null">Selecione uma opção</option>
-                                <option value="norte">Norte</option>
-                                <option value="nordeste">Nordeste</option>
-                                <option value="oeste">Centro-Oeste</option>
-                                <option value="sudeste">Sudeste</option>
-                                <option value="sul">Sul</option>
-                            </select>
-                        </div>
-                        <div class="estado">
-                            <label for="estado">Estados</label>
-                            <select name="estado" id="estado">
-                                <option disabled selected value="null">Selecione uma opção</option>
-                                <!-- Opções de estados serão carregadas dinamicamente aqui -->
-                            </select>
-                        </div>
-                        <button onclick="montagemSolar()" id="montagemSolar">Montagem</button>
                     </div>
                 </div>
             </div>
