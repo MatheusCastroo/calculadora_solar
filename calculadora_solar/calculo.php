@@ -170,9 +170,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "<ul>";
     echo "<li>Estrutura da placa: " . $estrutura_placa . "</li>";
-    echo "<li>Quantidade da bateria: " . $quantidade . "</li>";
-    echo "<li>SKU: " . $sku_bateria . "</li>";
-    echo "</ul>"; /*VALIDAR BATERIA */
+    echo "<li>Quantidade da estrutura: Validar calculo estrutura ". "</li>";
+    echo "<li>SKU: Validar calculo estrutura " .  "</li>";
+    echo "</ul>";
 
     $g7 = 24;
     $o25 = $tensao_placa * $quantidade_placa_mppt;
@@ -253,8 +253,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $cenarios_inversor = [
         [
-            "Teste1" => ($r3),
-            "Teste2" => ($tensao_bateria_vdc == 24),
+            "Teste1" => true,
+            "Teste2" => ($tensao_bateria_vdc == 12),
             "Teste3" => ($tensao_op_sistema == 127),
             "Teste4" => ("Valor Esperado" == $r3),
             "Resultado" => "INVERSOR SENOIDAL 350W 12V/110V IP350-11 EPEVER",
@@ -312,7 +312,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         ],
         [
-            "Teste1" => ($potencia_inversor <= 2000),
+            "Teste1" => ($potencia_inversor >= 2000),
             "Teste2" => ($tensao_bateria_vdc == 24),
             "Teste3" => ($tensao_op_sistema == 127),
             "Teste4" => ("Valor Esperado" == $r3),
@@ -324,7 +324,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         [
             "Teste1" => ($potencia_inversor >= 1),
             "Teste2" => ($tensao_bateria_vdc == 48),
-            "Teste3" => ($tensao_op_sistema == 220),
+            "Teste3" => ($tensao_op_sistema == 127),
             "Teste4" => ("Valor Esperado" == $r3),
             "Resultado" => "INVERSOR SENOIDAL 4000W 48V/110V IP4000-41-PLUS(T) EPEVER",
             "Quantidade" => ceil($potencia_inversor / 4000),
@@ -334,7 +334,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         [
             "Teste1" => ($potencia_inversor >= 1),
             "Teste2" => ($tensao_bateria_vdc == 48),
-            "Teste3" => ($tensao_op_sistema == 127),
+            "Teste3" => ($tensao_op_sistema == 220),
             "Teste4" => ("Valor Esperado" == $r3),
             "Resultado" => "INVERSOR SENOIDAL 4000W 48V/220V IP4000-42-PLUS(T) EPEVER",
             "Quantidade" => ceil($potencia_inversor / 4000),
@@ -353,4 +353,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-    
