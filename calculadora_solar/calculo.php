@@ -170,9 +170,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "<ul>";
     echo "<li>Estrutura da placa: " . $estrutura_placa . "</li>";
-    echo "<li>Quantidade da bateria: " . $quantidade_bateria . "</li>";
+    echo "<li>Quantidade da bateria: " . $quantidade . "</li>";
     echo "<li>SKU: " . $sku_bateria . "</li>";
-    echo "</ul>";
+    echo "</ul>"; /*VALIDAR BATERIA */
 
     $g7 = 24;
     $o25 = $tensao_placa * $quantidade_placa_mppt;
