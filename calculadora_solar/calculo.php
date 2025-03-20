@@ -347,7 +347,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<ul>";
     echo "<li>Estrutura da placa: " . $estrutura_placa . "</li>";
     if ($estrutura_placa == "ESTRUTURA 1PLACA POSTE") {
-        $quantidade_estrutura  = ceil($quantidade_placa_mppt / 2);
+        $quantidade_estrutura  = ceil($quantidade_placa_mppt / 1);
         echo "<li>Quantidade da Estrutura: ". $quantidade_estrutura.  "</li>";
         echo "<li>SKU: 21749</li>";
     }
