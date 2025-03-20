@@ -154,26 +154,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $quantidade_placa_mppt = round($potencia_sistema / $capacidade_placa);
     $corrente_controlador_carga = ceil($corrente_carregar_bateria);
     $potencia_inversor = $potencia;
-
-
-    echo "<ul>";
-    echo "<li>Modelo da placa: " . $modelo_placa . "</li>";
-    echo "<li>Quantidade da placa: " . $quantidade_placa_mppt . "</li>";
-    echo "<li>SKU: " . $sku_placa . "</li>";
-    echo "</ul>";
-
-    echo "<ul>";
-    echo "<li>Modelo da bateria: " . $modelo_bateria . "</li>";
-    echo "<li>Quantidade da bateria: " . $quantidade_bateria . "</li>";
-    echo "<li>SKU: " . $sku_bateria . "</li>";
-    echo "</ul>";
-
-    echo "<ul>";
-    echo "<li>Estrutura da placa: " . $estrutura_placa . "</li>";
-    echo "<li>Quantidade da estrutura: Validar calculo estrutura ". "</li>";
-    echo "<li>SKU: Validar calculo estrutura " .  "</li>";
-    echo "</ul>";
-
     $g7 = 24;
     $o25 = $tensao_placa * $quantidade_placa_mppt;
     $p30 = $o25 / 92;
@@ -241,16 +221,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]
 
     ];
-    foreach ($cenarios_controlador as $cenario_controlador) {
-        if ($cenario_controlador["Teste1"] && $cenario_controlador["Teste2"] && $cenario_controlador["Teste3"] && $cenario_controlador["Teste4"]) {
-            echo "<ul>";
-            echo "<li>Resultado: " . $cenario_controlador["Resultado"] . "</li>";
-            echo "<li>Quantidade: " . $cenario_controlador["Teste3"] . "</li>";
-            echo "<li>SKU: " . $cenario_controlador["SKU"] . "</li>";
-            echo "</ul>";
-            break; 
-        }
-    }
+    
     $cenarios_inversor = [
         [
             "Teste1" => true,
@@ -291,7 +262,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         ],
         [
-            "Teste1" => ($potencia_inversor <= 2000),
+            "Teste1" => ($potencia_inversor > 2000),
             "Teste2" => ($tensao_bateria_vdc == 24),
             "Teste3" => ($tensao_op_sistema == 220),
             "Teste4" => ("Valor Esperado" == $r3),
@@ -343,6 +314,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]
 
     ];
+    echo "<ul>";
+    echo "<li>Modelo da placa: " . $modelo_placa . "</li>";
+    echo "<li>Quantidade da placa: " . $quantidade_placa_mppt . "</li>";
+    echo "<li>SKU: " . $sku_placa . "</li>";
+    echo "</ul>";
     foreach ($cenarios_inversor as $cenario_inversor) {
         if ($cenario_inversor["Teste1"] && $cenario_inversor["Teste2"] && $cenario_inversor["Teste3"] && $cenario_inversor["Teste4"]) {
             echo "<ul>";
@@ -352,4 +328,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "</ul>";
         }
     }
+    foreach ($cenarios_controlador as $cenario_controlador) {
+        if ($cenario_controlador["Teste1"] && $cenario_controlador["Teste2"] && $cenario_controlador["Teste3"] && $cenario_controlador["Teste4"]) {
+            echo "<ul>";
+            echo "<li>Resultado: " . $cenario_controlador["Resultado"] . "</li>";
+            echo "<li>Quantidade: " . $cenario_controlador["Teste3"] . "</li>";
+            echo "<li>SKU: " . $cenario_controlador["SKU"] . "</li>";
+            echo "</ul>";
+            break; 
+        }
+    }
+    echo "<ul>";
+    echo "<li>Modelo da bateria: " . $modelo_bateria . "</li>";
+    echo "<li>Quantidade da bateria: " . $quantidade_bateria . "</li>";
+    echo "<li>SKU: " . $sku_bateria . "</li>";
+    echo "</ul>";
+    
+    echo "<ul>";
+    echo "<li>Estrutura da placa: " . $estrutura_placa . "</li>";
+    if ($estrutura_placa == "ESTRUTURA 1PLACA POSTE") {
+        $quantidade_estrutura  = ceil($quantidade_placa_mppt / 2);
+        echo "<li>Quantidade da Estrutura: ". $quantidade_estrutura.  "</li>";
+        echo "<li>SKU: 21749</li>";
+    }
+    else if ($estrutura_placa == "ESTRUTURA 2PLACA POSTE") {
+         $quantidade_estrutura  = ceil($quantidade_placa_mppt / 2);
+        echo "<li>Quantidade da Estrutura: ". $quantidade_estrutura .  "</li>";
+        echo "<li>SKU: 28521</li>";    
+    }
+    else {
+        echo "<li>Quantidade da Estrutura: 0 </li>";
+        echo "<li>SKU: 28521</li>";
+    }
+    echo "</ul>";
 }
