@@ -7,8 +7,8 @@ body {
   color: #333;
   height: 100vh;
   display: flex;
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center;
+  justify-content: center;
 }
 
 /* Estrutura principal */
@@ -17,38 +17,42 @@ main {
   padding: 20px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 /* Container do formulário */
 .container-wrapper {
   display: flex;
   flex-direction: row;
-  align-items: stretch; /* Alinha na mesma altura */
+  align-items: stretch;
   justify-content: center;
   box-shadow: 0px 2px 4px #888888;
-  border: 2px solid #ccc; /* Borda em volta */
+  border: 2px solid #ccc;
   border-radius: 12px;
   overflow: hidden;
-  max-width: 1520px; /* Largura máxima para o conteúdo */
-  padding: 0;
+  max-width: 1520px;
+  width: 100%;
   background-color: white;
 }
+
 .container-wrapper .imagem {
-  flex: 1.5; /* Aumenta a proporção da imagem */
-  max-width: 60%; /* Ajuste o espaço da imagem */
+  flex: 1.5;
+  max-width: 60%;
 }
+
 .container-wrapper .imagem img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
+
 .container-wrapper .resultado {
-  flex: 1; /* Reduz a proporção do formulário */
+  flex: 1;
   padding: 40px;
   margin-top: 4%;
   background: #fff;
-  
 }
 
 /* Cabeçalho e títulos */
@@ -63,12 +67,12 @@ h2 {
 .itens {
   display: flex;
   flex-direction: column;
-  gap: 32px; /* Aumentei o espaço entre os campos */
+  gap: 32px;
 }
 
 .itens label {
   font-weight: 600;
-  margin-bottom: 8px; /* Aumentei o espaçamento entre label e o campo */
+  margin-bottom: 8px;
   display: block;
   color: #444;
   font-size: 16px;
@@ -118,7 +122,7 @@ button {
 .botoes-final {
   display: flex;
   justify-content: center;
-  gap: 20px; /* Aumentei o espaço entre os botões */
+  gap: 20px;
   margin-top: 32px;
   flex-wrap: wrap;
 }
@@ -184,45 +188,64 @@ button:active {
   position: relative;
 }
 
-/* Media Queries */
+/* Campo inválido */
+.campo-invalido {
+  border: 2px solid red !important;
+}
+
+/* Responsividade */
+
+/* Smartphones pequenos */
 @media (max-width: 480px) {
-  .imagem {
-    display: none !important;
-  }
   .container-wrapper {
+    max-width: 95%;
+    flex-direction: column;
     padding: 20px;
-    flex-direction: column; /* Formulário e imagem em coluna */
-    height: auto; /* Ajuste de altura */
+    margin: auto;
+    height: auto;
   }
   .container-wrapper .imagem {
-    flex: 0 0 50%; /* Ajuste a imagem para ocupar 50% do espaço */
+    display: none !important;
   }
   .container-wrapper .resultado {
-    flex: 0 0 50%; /* Ajuste o formulário para ocupar 50% do espaço */
+    flex: 0 0 100%;
+    padding: 15px;
+    margin-top: 0;
+  }
+  .itens input,
+  .itens select {
+    font-size: 14px;
+    padding: 12px;
+  }
+  h2 {
+    font-size: 18px;
   }
   .botoes-final {
     flex-direction: column;
     align-items: center;
+    gap: 12px;
   }
   .botoes-final button {
     width: 100%;
   }
 }
 
+/* Celulares médios */
 @media (max-width: 600px) {
-  .imagem {
-    display: none !important;
-  }
   .container-wrapper {
-    padding: 20px;
+    max-width: 90%;
     flex-direction: column;
+    padding: 20px;
+    margin: auto;
     height: auto;
   }
   .container-wrapper .imagem {
-    flex: 0 0 50%;
+    display: none !important;
   }
   .container-wrapper .resultado {
-    flex: 0 0 50%;
+    flex: 0 0 100%;
+    padding: 20px;
+    margin-top: 0;
   }
   h2 {
     font-size: 20px;
@@ -236,23 +259,25 @@ button:active {
   }
 }
 
+/* Tablets */
 @media (max-width: 768px) {
-  .imagem {
-    display: none !important;
-  }
   .container-wrapper {
-    padding: 20px;
+    max-width: 85%;
     flex-direction: column;
+    padding: 20px;
+    margin: auto;
     height: auto;
   }
   .container-wrapper .imagem {
-    flex: 0 0 50%;
+    display: none !important;
   }
   .container-wrapper .resultado {
-    flex: 0 0 50%;
+    flex: 0 0 100%;
+    padding: 25px;
+    margin-top: 0;
   }
   h2 {
-    font-size: 24px;
+    font-size: 22px;
   }
   .botoes-final {
     flex-direction: column;
@@ -263,23 +288,25 @@ button:active {
   }
 }
 
+/* Laptops menores */
 @media (max-width: 1024px) {
-  .imagem {
-    display: none !important;
-  }
   .container-wrapper {
-    padding: 20px;
+    max-width: 80%;
     flex-direction: column;
+    padding: 20px;
+    margin: auto;
     height: auto;
   }
   .container-wrapper .imagem {
-    flex: 0 0 50%;
+    display: none !important;
   }
   .container-wrapper .resultado {
-    flex: 0 0 50%;
+    flex: 0 0 100%;
+    padding: 30px;
+    margin-top: 0;
   }
   h2 {
-    font-size: 28px;
+    font-size: 24px;
   }
   .botoes-final {
     flex-direction: column;
@@ -289,7 +316,30 @@ button:active {
     width: 100%;
   }
 }
-
-.campo-invalido {
-  border: 2px solid red !important;
+@media (max-width: 1366px) {
+  .container-wrapper {
+    max-width: 80%;
+    flex-direction: column;
+    padding: 20px;
+    margin: auto;
+    height: auto;
+  }
+  .container-wrapper .imagem {
+    display: none !important;
+  }
+  .container-wrapper .resultado {
+    flex: 0 0 100%;
+    padding: 30px;
+    margin-top: 0;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  .botoes-final {
+    flex-direction: column;
+    gap: 18px;
+  }
+  .botoes-final button {
+    width: 100%;
+  }
 }

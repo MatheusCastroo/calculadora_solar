@@ -75,6 +75,7 @@
                                         <option value="tensao_bateria_48">48 Vdc</option>
                                     </select>
                                 </div>
+                                <div class="modelo_bateria">
                                 <label for="modelo_bateria">Modelo da bateria</label>
                                 <select name="modelo_bateria" id="modelo_bateria">
                                     <option disabled selected value="">Selecione uma opção</option>
@@ -84,6 +85,7 @@
                                     <option value="BATERIA SOLAR 12-150AH ELO SOLAR">BATERIA SOLAR 12-150AH ELO SOLAR - Cód.24231</option>
                                     <option value="BATERIA ESTACIONARIA 12V 45AH MOURA">BATERIA ESTACIONARIA 12V 45AH MOURA - Cód.28887</option>
                                 </select>
+                                </div>
                                 <div class="descarregar_bateria">
                                     <label for="descarregar_bateria">Descarregar baterias até (%)</label>
                                     <select name="descarregar_bateria" id="descarregar_bateria">

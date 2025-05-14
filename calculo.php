@@ -1,5 +1,4 @@
 <?php
-session_start();
 require 'conexao.php'; // Importa a conexão com o banco
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
